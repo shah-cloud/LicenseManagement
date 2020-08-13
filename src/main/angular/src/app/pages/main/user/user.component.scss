@@ -1,0 +1,22 @@
+.cursor{ cursor: pointer;}
+span.badge {
+    background-color: #ef4000;
+    color: #fff;
+    padding: 5px;
+    font-size: 12px;
+    border-radius: 3px;
+}
+.btn-danger{
+    color: #fff;
+    text-align: center;
+    bottom: 2px;
+    right: 15px;
+    background-color: #e74111;
+    border-color: #e74111;
+}
+.btn-danger:focus {
+    color: #fff;
+    background-color: #c82333;
+    border-color: #bd2130;
+    box-shadow: none;
+}

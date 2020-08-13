@@ -1,0 +1,48 @@
+<div class="container-fluid">
+    <button class="btn btn-danger"   *ngIf="hasAuthority('USER_CREATE')"
+     (click)="createuser()">Create User</button>
+  <table class="table table-bordered">
+    <thead class="users_table_hader">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">UserName</th>
+        <th scope="col">Email</th>
+        <th scope="col">Contact No.</th>
+        <th scope="col">Roles</th>
+        <th scope="col" class="action_width"  *ngIf="hasAuthority('USER_UPDATE') || hasAuthority('USER_DELETE')" >Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of users; index as index">
+        <td>{{index+1}}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.username}}</td>
+        <td>{{item.email}}</td>
+        <td>{{item.contactNo}}</td>
+        <td>
+          <span class="badge custom_badge"
+           *ngFor=" let role of item.roles; index as index">
+            {{role.name}}
+          </span>
+        </td>
+        <ng-container *ngIf="hasAuthority('USER_UPDATE') || hasAuthority('USER_DELETE')">
+        <td *ngIf="item.active">
+          <button class="edit_button"
+          *ngIf="hasAuthority('USER_DELETE')" >
+            <i class="fa fa-edit" (click)="edituser(item)"></i>
+          </button>
+          <button class="delete_button"
+          *ngIf="hasAuthority('USER_DELETE')">
+            <i class="fa fa-trash" (click)="deleteuser(item)"></i>
+          </button>
+        </td>
+        <td *ngIf="!item.active">
+          <button class="roleactive" *ngIf="hasAuthority('USER_DELETE')"
+           (click)="activateuser(item)">
+            activate</button></td>
+       </ng-container>
+      </tr>
+    </tbody>
+  </table>
+</div>

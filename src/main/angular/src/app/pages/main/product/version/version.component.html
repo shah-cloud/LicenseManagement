@@ -1,0 +1,140 @@
+ <div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="text-center"> Versions Table</h2>
+        <table class="table table-bordered">
+          <thead class="users_table_hader">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Version</th>
+              <th class="action_width" scope="col" *ngIf="hasAuthority('VERSION_UPDATE') || hasAuthority('VERSION_DELETE')">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let version of Versions; index as i">
+              <td>{{i+1}}</td>
+              <td>{{version.version}}</td>
+              <td *ngIf="hasAuthority('VERSION_UPDATE') || hasAuthority('VERSION_DELETE')">
+                <button class="edit_button cursor"
+                *ngIf="hasAuthority('VERSION_UPDATE')"
+                 (click)="editVersion(version)">
+                  <i class="fa fa-edit"></i>
+                </button>
+                <button class="delete_button  cursor" 
+                *ngIf="hasAuthority('VERSION_DELETE')"
+                 (click)="deleteVersion(version)">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <ng-container *ngIf="hasAuthority('VERSION_CREATE')" >
+        <button class="btn btn-danger"
+         *ngIf="!isCreateVersion" 
+         (click)="showVersionForm()">Add Version</button>
+        </ng-container>
+    </div>
+
+
+    <div class="col-md-12" *ngIf="isCreateVersion || !Versions">
+      <h2 class="text-center">Create Version</h2>
+      <form (ngSubmit)="onSubmit()" [formGroup]="createVersionForm">
+        <div class="form-group">
+          <label>Version</label>
+          <input type="text" class="form-control" name="Version" placeholder="Version" formControlName="version">
+          <span *ngIf="createVersionForm.get('version').errors &&
+          (createVersionForm.get('version').touched||createVersionForm.get('version').dirty)">
+          <span *ngIf="createVersionForm.get('version').errors.required" class="text-danger">Version is
+            required</span>
+          </span>       
+        </div>
+
+        <div class="form-group">
+        <button type="submit" class="btn btn-danger ml-auto" *ngIf="!loaderbutton" 
+        [disabled]="!createVersionForm.valid">
+          {{versionId ?'Update': 'Submit'}}</button>
+          <button class="buttonload btn-danger ml-auto" *ngIf="loaderbutton">
+            <i class="fa fa-refresh fa-spin"></i> Loading
+          </button>
+          <button type="button" class="btn btn-danger ml-2"
+          (click)="Reset()" >
+          <i class="fa fa-times"></i> Reset</button>
+          <button type="button" class="btn btn-danger ml-2"
+          (click)="close()"> Close</button>
+        </div>
+
+
+      </form>
+    </div>
+  </div>
+  <!-- <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="text-center"> Versions Table</h2>
+
+          <table class="table table-bordered">
+            <thead class="users_table_hader">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Version</th>
+                <th scope="col" *ngIf="hasAuthority('VERSION_UPDATE') || hasAuthority('VERSION_DELETE')">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let version of Versions; index as i">
+                <td>{{i+1}}</td>
+                <td>{{version.version}}</td>
+                <td *ngIf="hasAuthority('VERSION_UPDATE') || hasAuthority('VERSION_DELETE')">
+                  <button class="text-primary"
+                  *ngIf="hasAuthority('VERSION_UPDATE')"
+                   (click)="editVersion(version)">
+                    <i class="fa fa-edit"></i>
+                  </button>
+                  <button class="text-danger" 
+                  *ngIf="hasAuthority('VERSION_DELETE')"
+                   (click)="deleteVersion(version)">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <ng-container *ngIf="hasAuthority('VERSION_CREATE')" >
+            <button class="btn btn-danger"
+             *ngIf="!isCreateVersion" 
+             (click)="showVersionForm()">Add Version</button>
+            </ng-container>
+
+        <ng-container *ngIf="hasAuthority('PRODUCT_DETAIL_CREATE')" >
+        <button class="btn btn-danger"  *ngIf="!isCreateDetail"
+        (click)="showDetailForm()">Add Product Detail </button>
+        </ng-container>
+      </div>
+      <div class="col-md-6" *ngIf="isCreateDetail">
+        <h2 class="text-center">Create Version</h2>
+        <form (ngSubmit)="onSubmit()" [formGroup]="createVersionForm">
+          <div class="form-group">
+            <label>Version</label>
+            <input type="text" class="form-control" name="Version" placeholder="Version" formControlName="version">
+            <span *ngIf="createVersionForm.get('version').errors &&
+            (createVersionForm.get('version').touched||createVersionForm.get('version').dirty)">
+            <span *ngIf="createVersionForm.get('version').errors.required" class="text-danger">Version is
+              required</span>
+            </span>       
+          </div>
+          <button type="submit" class="btn btn-danger ml-auto" *ngIf="!loaderbutton" 
+          [disabled]="!createVersionForm.valid">
+            {{versionId ?'Update': 'Submit'}}</button>
+            <button class="buttonload btn-danger ml-auto" *ngIf="loaderbutton">
+              <i class="fa fa-refresh fa-spin"></i> Loading
+            </button>
+            <button type="button" class="btn btn-danger ml-2"
+            (click)="Reset()" >
+            <i class="fa fa-times"></i> Reset</button>
+            <button type="button" class="btn btn-danger ml-2"
+            (click)="close()"> Close</button>
+        </form>
+      </div>
+    </div>
+  </div> -->

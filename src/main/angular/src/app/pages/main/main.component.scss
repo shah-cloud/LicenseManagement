@@ -1,0 +1,141 @@
+#sidebar-wrapper {
+  margin-left: 0;
+  position: fixed;
+  z-index: 33;
+  margin-top: 0;
+  width: 250px;
+  box-shadow: 0 0 10px #999;
+  transition: all 0.5s;
+  min-height: 100vh;
+  height: 100%;
+  .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    font-size: 1.2rem;
+  }
+
+}
+
+#page-content-wrapper {
+  width: calc(100% - 250px);
+  float: right;
+  display: inline-block;
+  transition: all 0.5s;
+
+}
+
+.toggled {
+  #sidebar-wrapper {
+      margin-left: -250px;
+  }
+  #page-content-wrapper {
+      width: 100%;
+  }
+}
+.user {
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+  padding: 20px 0;
+}
+.user-img {
+  width: 70px;
+  height: 70px;
+  overflow: hidden;
+  border-radius: 50%;
+  display: inline-block;
+}
+.user {
+  img{
+      width: 100%;
+  }
+}
+a.list-group-item.list-group-item-action.active, 
+a.list-group-item.list-group-item-action:hover{
+  background-color: #e74111;
+  color: white;
+}
+
+a.list-group-item i {
+  margin-right: 5px;
+}
+.header_main {
+  display: inline-block;
+  width: 100%;
+  padding: 10px 0;
+  background: #fff;
+  box-shadow: 4px 0 6px #999;
+  top: 0;
+  position: sticky;
+  z-index: 222;
+  right: 0;
+  background: #f8f9fa!important;
+  .manu{
+    display: inline-block;
+    width: auto;
+    float: right;
+    margin-top: 10px;
+    ul {
+      display: inline-block;
+      width: 100%;
+      padding: 0;
+      list-style: none;
+      margin: 0;
+      li {
+        display: inline-block;
+        width: 100%;
+        h6{
+          font-size: 17px;
+          color: #333;
+          padding: 0 10px;
+        }
+      }
+    }
+  }
+
+  .toggle_main {
+    display: inline-block;
+    width: auto;
+    padding: 5px 10px;
+    border: none;
+    background: no-repeat;
+    i.fa.fa-bars {
+      font-size: 30px;
+      color: #ef4000;
+  }
+  &:focus {
+    outline: 0;
+    box-shadow: none;
+  }
+}
+}
+
+.list-group {
+    display: inline-block;
+    padding-left: 0;
+    margin-bottom: 0;
+    background: no-repeat;
+    width: 100%;
+    font-family: 'Hind Madurai', sans-serif;
+}
+.sidebar-logo {
+  display: inline-block;
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+}
+.list-group-item{
+  background: none;
+}
+.list-group-item.active {
+  z-index: 2;
+  color: #fff;
+  background-color: none;
+  border-color: none;
+}
+.dropdown_sidebar {
+  display: inline-block;
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+  &:last-child{
+    border-block-end: none;
+  }
+}

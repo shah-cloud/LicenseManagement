@@ -1,0 +1,136 @@
+
+<div class="text-center">
+  <div *ngIf="isloader" class="spinner-border text-danger" style="width: 6rem; height: 6rem;"></div>
+</div>
+<table class="table table-bordered">
+
+  <tr class="text-primary">
+    <th scope="col">#</th>
+    <th scope="col">Product Detail</th>
+    <th scope="col">No of License</th>
+    <th scope="col">License Type</th>
+    <th scope="col">Expiry</th>
+    <th scope="col">Expiry Period (in months)</th>
+    <th scope="col"> Start Date </th>
+    <th scope="col">End Date</th>
+    <th scope="col">Status</th>
+    <th scope="col">Action</th>
+  </tr>
+  <tr *ngFor="let project of projectProduct ; index as i">
+    <td>{{i+1}}</td>
+    <td>
+      {{project.productDetailResponse.productCodeName}}
+      {{project.productDetailResponse.productFamilyName}}
+      {{project.productDetailResponse.versionName}}
+    </td>
+    <td>{{project.licenseCount}}</td>
+    <td>{{project.licenseTypeName}}</td>
+    <td>{{project.expirationPeriodType}}</td>
+    <td *ngIf="project.expirationPeriodType=='LIMITED'">{{project.expirationMonthCount}}</td>
+    <td *ngIf="project.expirationPeriodType=='LIFETIME'">NA</td>
+    <td>{{project.startDate}}</td>
+    <td *ngIf="project.expirationPeriodType=='LIMITED'">{{project.endDate}}</td>
+    <td *ngIf="project.expirationPeriodType=='LIFETIME'">NA</td>
+    <td>{{project.status}}
+      <br>
+      <a class="cursor text-danger" *ngIf="project.status!=='DRAFT'"
+      (click)="showComments(project)">comments
+    </a>
+    </td>
+    <td  *ngIf="project.status=='DRAFT'">
+      <a class="text-primary pr-2 cursor" 
+      *ngIf="hasAuthority('PROJECT_PRODUCT_UPDATE')"
+      (click)="editProduct(project)">
+        <i class="fa fa-edit"></i>
+      </a>
+      <a class="text-danger pl-2 cursor" 
+      *ngIf="hasAuthority('PROJECT_PRODUCT_DELETE')"
+      (click)="deleteProduct(project)">
+        <i class="fa fa-trash"></i>
+      </a>
+    <button type="button"
+    *ngIf="hasAuthority('PROJECT_PRODUCT_SUBMIT')"
+    (click)="submitProductStatus(project)">Submit</button>
+    </td>
+    <td  *ngIf="project.status=='SUBMIT'">
+      <button  type="button"
+      *ngIf="hasAuthority('PROJECT_PRODUCT_REVIEW')"
+      (click)="reviewProductStatus(project)">Review</button>
+      <button  type="button"
+      (click)="rejectProductStatus(project)">Reject</button>
+</td>
+<td *ngIf="project.status=='REVIEWED'">
+  <button  type="button"
+  *ngIf="hasAuthority('PROJECT_PRODUCT_APPROVE')"
+  (click)="approveProductStatus(project)">Approved</button>
+  <button type="button"
+  (click)="rejectProductStatus(project)">Reject</button>
+</td>
+<td *ngIf="project.status=='APPROVED' ||project.status=='REJECTED'">NA
+</td>
+  </tr>
+</table>
+
+
+<div class="modal" id="myModal" [style.display]="showModal ? 'block' : 'none'">
+  <div class="modal-dialog">
+    <div class="modal-content">
+          <div class="modal-header">
+        <h4 class="modal-title">Enter Comment</h4>
+        <button type="button" class="close" data-dismiss="modal"
+        (click) = "hide()">&times;</button>
+      </div>
+
+      <form (ngSubmit)="onSubmitComment()" [formGroup]="popUpForm">
+            <div class="modal-body">
+              <div class="form-group">
+             <textarea class="form-control"
+             formControlName="comment" name="comment" ></textarea>
+             <span *ngIf="popUpForm.get('comment').errors &&
+             (popUpForm.get('comment').touched || popUpForm.get('comment').dirty)">
+               <span *ngIf="popUpForm.get('comment').errors.required" class="text-danger">
+             Comment is required</span>
+             </span>
+           </div>
+          </div>
+            <div class="modal-footer">
+            <button type="submit" [disabled]="!popUpForm.valid">
+              {{commentSubmitButton}}
+          </button>
+           </div>
+       </form>
+      
+    </div>
+  </div>
+  </div>
+
+
+
+
+
+
+<div class="modal" id="myModal" 
+  [style.display]="showCommentModal ? 'block' : 'none'">
+    <div class="modal-dialog">
+      <div class="modal-content">
+            <div class="modal-header">
+          <h4 class="modal-title"> Comments</h4>
+          <button type="button" class="close" data-dismiss="modal"
+          (click) = "hideCommentModel()">&times;</button>
+        </div>
+        <div class="modal-body">
+     <ul *ngFor =" let c of comments">
+      <li>
+        <span *ngIf="!hasUserId(c)"> NAME :{{c.commentedBy}}</span>
+        <span *ngIf="hasUserId(c)" > NAME : me</span>
+          COMMENT :{{c.comment}}
+          
+          TIME:{{c.createdAt | date:'medium'}}
+      </li>
+
+     </ul>
+     
+        </div>
+      </div>
+    </div>
+    </div>

@@ -1,0 +1,27 @@
+<div class="table-responsive">
+  <table class="table table-bordered mt-4">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">UserName</th>
+        <th scope="col">Authorities</th>
+        <th scope="col">Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+         <td>{{Name}}</td>
+        <td>{{UserName}}</td>
+        <td>
+          <span class="badge p-2 mr-2 mb-2 cursor"
+          *ngFor ="let authorities of UserAuthorities">
+          {{authorities.name}}
+
+          </span>
+        </td>
+        <td>
+          <span *ngFor ="let role of UserRole">
+            {{role.name}}
+            </span>
+        </td>
+      </tr>

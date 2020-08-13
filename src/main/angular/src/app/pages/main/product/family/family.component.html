@@ -1,0 +1,46 @@
+<div class="cpntainer-fluid">
+  <div class="col-md-12">
+    <div class="text-center">
+      <div *ngIf="isloader" class="spinner-border text-danger" style="width: 4rem; height: 4rem;"></div>
+    </div>
+    <div>
+      <button (click)="addProductFamily()">Add Product family</button>
+    </div>
+    <!-- <div class="table-responsive"> -->
+    <table class="table table-bordered">
+      <thead class="users_table_hader">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Code</th>
+          <th scope="col">Product Codes</th>
+          <th scope="col">Description</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let family of Family; index as i">
+          <td>{{i+1}}</td>
+          <td>{{family.name}}</td>
+          <td>{{family.code}}</td>
+          <td><span *ngFor="let fam of family.productCodes">
+              <span class="badge mr-2  custom_badge">{{fam.name}}</span>
+            </span>
+          </td>
+          <td>{{family.description}}</td>
+          <td>
+            <a class="text-primary pr-2 cursor"
+            (click)="editFamilyDescription(family)">
+                        <i class="fa fa-edit"></i>
+                      </a>
+                      <a class="text-primary pr-2 cursor"
+                      (click)="deleteFamilyDescription(family)">
+                                  <i class="fa fa-trash"></i>
+                                </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- </div> -->
+  </div>
+</div>

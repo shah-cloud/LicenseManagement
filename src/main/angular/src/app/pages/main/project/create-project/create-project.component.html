@@ -1,0 +1,96 @@
+<div class="container">
+<div class="row">
+<div class="col-12">
+
+<form (ngSubmit)="onSubmit()" [formGroup]="projectForm" class="form_main">
+  <h3> Create Project</h3>
+<div class="input_feild">
+  <div class="form-group">
+    <label>Customer Name</label>
+    <input class="form-control" type="text" autocomplete="off"
+     formControlName="customerName" name="customerName" 
+     (ngModelChange)="selectSearchTerm($event)" id="fname" list="browsers">
+     <datalist id="browsers" class="hello">
+      <option [value]="name.name"
+      *ngFor="let name of projectcustomers" style="width: 100%;"> 
+      {{name.name}}
+     </option>
+    </datalist>
+    <span *ngIf="projectForm.get('customerName').errors &&
+    (projectForm.get('customerName').touched||projectForm.get('customerName').dirty)">
+    <span *ngIf="projectForm.get('customerName').errors.required" class="field_error">Name is
+      required</span>
+    </span>
+    
+    </div>
+    
+    
+    <div class="form-group">
+    <label>Customer Email</label>
+    <input type="email" class="form-control" formControlName="customerEmail" name="customerEmail">
+    <span *ngIf="projectForm.get('customerEmail').errors &&
+    (projectForm.get('customerEmail').touched||projectForm.get('customerEmail').dirty)">
+    <span *ngIf="projectForm.get('customerEmail').errors.required" class="field_error">Email is
+      required</span>
+    </span>
+    </div>
+    
+    <div class="form-group">
+    <label>Customer Contact No </label>
+    <input type="tel" class="form-control" formControlName="customerContactNo" name="customerContactNo">
+    <span *ngIf="projectForm.get('customerContactNo').errors &&
+    (projectForm.get('customerContactNo').touched||projectForm.get('customerContactNo').dirty)">
+    <span *ngIf="projectForm.get('customerContactNo').errors.pattern" class="field_error">only numbers 
+    allowed</span>
+    <span *ngIf="projectForm.get('customerContactNo').errors.maxlength" class="field_error">maximum 10
+    digits is required</span>
+    <span *ngIf="projectForm.get('customerContactNo').errors.minlength" class="field_error">minimum 10
+    digits is required</span>  
+                 
+        </span>
+    </div>
+    <div class="form-group">
+    <label for="sel1">Project Type </label>
+    <select class="form-control" id="sel1" name="projectTypeId" formControlName="projectTypeId">
+    <option *ngFor="let type of projectTypes" value="{{type.id}}" >
+    {{type.name}}
+    </option>
+    </select>
+    <span *ngIf="projectForm.get('projectTypeId').errors &&
+    (projectForm.get('projectTypeId').touched||projectForm.get('projectTypeId').dirty)">
+    <span *ngIf="projectForm.get('projectTypeId').errors.required" class="field_error">project Type Name is
+      required</span>
+    </span>
+    </div>
+    <div class="form-group">
+    <label for="sel1">Project Manager </label>
+    <select class="form-control" id="sel1" name="projectManagerId" formControlName="projectManagerId">
+    <option *ngFor="let Manager of projectManager" value="{{Manager.id}}">{{Manager.name}}</option>
+    </select>
+    <span *ngIf="projectForm.get('projectManagerId').errors &&
+    (projectForm.get('projectManagerId').touched||projectForm.get('projectManagerId').dirty)">
+    <span *ngIf="projectForm.get('projectManagerId').errors.required" class="field_error">project Manager Name is
+      required</span>
+    </span>
+    </div>
+    <div class="form-check">
+      <label class="form-check-label" for="check1">
+      <input type="checkbox" class="form-check-input" id="check1" formControlName="isEmailSend" name="option1" value="something" checked>
+       Send Email
+      </label>
+      </div>
+      
+    <div class="form-group d-flex mt-3">
+    <button type="submit" class="btn btn-success ml-auto" *ngIf="!loaderbutton"
+     [disabled]="!projectForm.valid">
+    Submit</button>
+    <button class="buttonload btn-danger ml-auto" *ngIf="loaderbutton">
+      <i class="fa fa-refresh fa-spin"></i> Loading
+    </button>
+    </div>
+</div>
+
+</form>
+</div>
+</div>
+</div>

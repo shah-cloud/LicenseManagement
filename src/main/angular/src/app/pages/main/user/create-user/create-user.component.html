@@ -1,0 +1,93 @@
+<div class="role_from">
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <form (ngSubmit)="onSubmit()" [formGroup]="createUserForm" class="form_main">
+                <h3>User Edit</h3>
+                <div class="input_feild">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" formControlName="name" name="name" placeholder="Name"
+                            [ngClass]="{'errorinput':createUserForm.get('name').errors &&
+    (createUserForm.get('name').touched||createUserForm.get('name').dirty)}">
+                        <span *ngIf="createUserForm.get('name').errors &&
+    (createUserForm.get('name').touched||createUserForm.get('name').dirty)">
+                            <span *ngIf="createUserForm.get('name').errors.required" class="field_error">name is
+                                required</span>
+                        </span>
+                    </div>
+    
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" class="form-control" [readonly]="userId" formControlName="username"
+                            name="username" placeholder="Username" [ngClass]="{'errorinput':createUserForm.get('username').errors &&
+    (createUserForm.get('username').touched||createUserForm.get('username').dirty)}">
+                        <span *ngIf="createUserForm.get('username').errors &&
+    (createUserForm.get('username').touched||createUserForm.get('username').dirty)">
+                            <span *ngIf="createUserForm.get('username').errors.required" class="field_error">username is
+                                required</span>
+                        </span>
+                    </div>
+    
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" formControlName="email" name="email" placeholder="Email"
+                            [ngClass]="{'errorinput':createUserForm.get('email').errors &&
+    (createUserForm.get('email').touched||createUserForm.get('email').dirty)}">
+                        <span *ngIf="createUserForm.get('email').errors &&
+    (createUserForm.get('email').touched||createUserForm.get('email').dirty)">
+                            <span *ngIf="createUserForm.get('email').errors.required" class="field_error">email is
+                                required</span>
+                            <span *ngIf="createUserForm.get('email').errors.email" class="field_error">email is not
+                                valid</span>
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Number</label>
+                        <input type="tel" class="form-control" formControlName="contactNo" name="contactNo"
+                            placeholder="Contact Number" [ngClass]="{'errorinput':createUserForm.get('contactNo').errors &&
+    (createUserForm.get('contactNo').touched||createUserForm.get('contactNo').dirty)}">
+                        <span *ngIf="createUserForm.get('contactNo').errors &&
+    (createUserForm.get('contactNo').touched||createUserForm.get('contactNo').dirty)">
+                            <span *ngIf="createUserForm.get('contactNo').errors.required" class="field_error">contactNo is
+                                required</span>
+                            <span *ngIf="createUserForm.get('contactNo').errors.pattern" class="field_error">only numbers
+                                are
+                                required</span>
+                            <span *ngIf="createUserForm.get('contactNo').errors.maxlength" class="field_error"> maximum 10
+                                digits
+                                allowed</span>
+                            <span *ngIf="createUserForm.get('contactNo').errors.minlength" class="field_error">mimimum 10
+                                digits
+                                required</span>
+                        </span>
+                    </div>
+    
+    
+                    <ng-multiselect-dropdown name="roles" ng-required="true" [placeholder]="'Select roles'"
+                        [data]="dropdownList" [(ngModel)]="selectedItems" [settings]="dropdownSettings"
+                        (onSelect)="onItemSelect($event)" (onDeSelect)="onItemDeSelect($event)"
+                        (onSelectAll)="onSelectAll($event)" [ngModelOptions]="{standalone: true}">
+                    </ng-multiselect-dropdown>
+    
+    
+    
+                    <div class="form-group d-flex mt-3 mb-0">
+                        <button type="submit" *ngIf="!loaderbutton" class="btn btn-success ml-auto" [disabled]="!createUserForm.valid">
+                            {{userId ?'Update': 'Submit'}}</button>
+                            <button class="buttonload btn-danger ml-auto" *ngIf="loaderbutton">
+                                <i class="fa fa-refresh fa-spin"></i> Loading
+                              </button>
+                            <!-- <button type="button" class="btn btn-danger ml-2"
+                            (click)="cancel()" >
+                                <i class="fa fa-times"></i> Reset</button> -->
+                              <button type="button" class="btn btn-info ml-2"
+                               (click)="goback()">
+                                  <i class="fa fa-arrow-left"></i> Back</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>

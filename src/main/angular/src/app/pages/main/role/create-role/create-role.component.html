@@ -1,0 +1,41 @@
+
+ 
+
+      <div class="roal_create_roal">
+      <form (ngSubmit)="onSubmit()" [formGroup]="createRoleForm" class="form_main">
+        <h3>Role Edit </h3>
+        <div class="input_feild">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" formControlName="name" name="name" placeholder="Name" [ngClass]="{'errorinput':createRoleForm.get('name').errors &&
+              (createRoleForm.get('name').touched||createRoleForm.get('name').dirty)}">
+            <span *ngIf="createRoleForm.get('name').errors &&
+              (createRoleForm.get('name').touched||createRoleForm.get('name').dirty)">
+              <span *ngIf="createRoleForm.get('name').errors.required" class="field_error">name is required</span>
+            </span>
+          </div>
+          <div class="form-group">
+          <ng-multiselect-dropdown name="authorities" ng-required="true" [placeholder]="'Select roles'" [data]="dropdownList"
+            [(ngModel)]="selectedItems" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
+            (onDeSelect)="onItemDeSelect($event)" (onSelectAll)="onSelectAll($event)"
+            [ngModelOptions]="{standalone: true}">
+          </ng-multiselect-dropdown>
+          </div>
+  
+          <div class="form-group mt-3 mb-0">
+              <div class="loading_back_button">
+            <button type="submit" *ngIf="!loaderbutton" class="btn btn-success mr-2" [disabled]="!createRoleForm.valid">
+              {{roleId ?'Update': 'Submit'}}
+            </button>
+            <button class="buttonload btn-success ml-auto" *ngIf="loaderbutton">
+                <i class="fa fa-refresh fa-spin"></i> Loading
+              </button>
+              <!-- <button type="button" class="btn btn-danger ml-2" (click)="cancel()">
+                <i class="fa fa-times"></i> Reset</button> -->
+              <button type="button" class="btn btn-info ml-auto text-white" (click)="goback()">
+                <i class="fa fa-arrow-left"></i> Back</button>
+                </div>
+          </div>
+        </div>
+      </form>
+    </div>

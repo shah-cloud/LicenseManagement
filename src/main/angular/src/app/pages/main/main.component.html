@@ -1,0 +1,44 @@
+<div id="wrapper">
+  <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sidebar-logo">
+      <div class="user" (click)="userProfile()">
+        <div class="user-img">
+          <img src="assets/images/user.png" alt="" style="cursor: pointer;">
+        </div>
+        <div class="user-name" style="cursor: pointer;">{{UserInfo}}
+        </div>
+      </div>
+    </div>
+    <div class="list-group list-group-flush">
+      <ng-container *ngFor="let p of pages">
+          <div class="dropdown_sidebar">
+            <a href="#" class="list-group-item list-group-item-action" 
+                [routerLink]="[p.route]"  routerLinkActive="active"
+                *ngIf="pageAuthority(p.privilege)">
+                {{p.title}}
+            </a>
+          </div>
+    </ng-container>
+    </div>
+  </div>
+  <div id="page-content-wrapper">
+    <div class="header_main">
+      <button class="toggle_main" id="menu-toggle" (click)="menu()"><i class="fa fa-bars"></i> </button>
+      <div class="manu" id="navbarSupportedContent">
+        <ul>
+          <li >
+            <h6 (click)="logout()" style="cursor: pointer;">Logout
+              <i class="fa fa-sign-out"></i>
+            </h6>
+          </li>
+        </ul>
+      </div>
+  </div>
+    <div class="container-fluid">
+        <div class="middle-content">
+           <router-outlet></router-outlet>
+        </div>
+    </div>
+  </div>
+
+</div>

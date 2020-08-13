@@ -1,0 +1,122 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+       
+      <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="form_main">
+        <h3>Add Product</h3>
+        <div class="input_feild">
+        <div class="form-group">
+          <label>Product Family </label>
+          <select class="form-control" name="productFamily" 
+          (ngModelChange)="productCodes = $event.productCodes" [ngModelOptions]="{standalone: true}" ngModel>
+            <option value="" disabled>Select Product Family</option>
+            <option *ngFor="let product of productDetail" [ngValue]="product">
+              {{product.name}}
+            </option>
+          </select>
+        </div>
+        <div class="form-group" >
+          <label>Product Code </label>
+          <select class="form-control" name="productCode" (ngModelChange)="getVersions($event)" [ngModelOptions]="{standalone: true}" ngModel>
+            <option value="" disabled>Product Code</option>
+            <option *ngFor="let code of productCodes" [ngValue]="code">
+              {{code.name}}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Product Version </label>
+          <select class="form-control" name="productVersion" formControlName="productDetailId">
+            <option value="" disabled>Select Version</option>
+            <option *ngFor="let v of versions" [value]="v.productDetailId">
+              {{v.version}}
+            </option>
+          </select>
+          <span *ngIf="productForm.get('productDetailId').errors &&
+          (productForm.get('productDetailId').touched||productForm.get('productDetailId').dirty)">
+            <span *ngIf="productForm.get('productDetailId').errors.required" class="field_error">Product detail
+              is required</span>
+          </span>
+        </div>
+        <div class="form-group">
+          <label>License Count </label>
+          <input type="number" class="form-control" formControlName="licenseCount" name="licenseCount">
+          <span *ngIf="productForm.get('licenseCount').errors &&
+          (productForm.get('licenseCount').touched||productForm.get('licenseCount').dirty)">
+            <span *ngIf="productForm.get('licenseCount').errors.required" class="field_error">License Count
+              is required</span>
+          </span>
+        </div>
+        <div class="form-group">
+          <label>License Type </label>
+          <select class="form-control" name="licenseTypeId" (ngModelChange)="onLicenseChange($event)"
+           formControlName="licenseTypeId">
+            <option *ngFor="let license of licenseType" value ={{license.id}}
+          >{{license.name}}</option>
+          </select>
+          <span *ngIf="productForm.get('licenseTypeId').errors &&
+          (productForm.get('licenseTypeId').touched||productForm.get('licenseTypeId').dirty)">
+            <span *ngIf="productForm.get('licenseTypeId').errors.required" class="field_error">License Type
+              is required</span>
+          </span>
+        </div>
+        <div class="form-group">
+          <!-- <label>Expiration Period </label> -->
+          <label>Expiry</label>
+          <select class="form-control" name="expirationPeriodType"
+           (ngModelChange)="onExpirationChange($event)"
+          formControlName="expirationPeriodType">
+            <option>LIMITED</option>
+            <option>LIFETIME </option>
+          </select>
+          <span *ngIf="productForm.get('expirationPeriodType').errors &&
+          (productForm.get('expirationPeriodType').touched||productForm.get('expirationPeriodType').dirty)">
+            <span *ngIf="productForm.get('expirationPeriodType').errors.required" class="field_error">
+              Expiration Period Type
+              is required</span>
+          </span>
+        </div>
+        <div class="form-group">
+          <label>Expiry Period (in months) </label>
+          <input type="number" class="form-control" formControlName="expirationMonthCount" 
+          name="expirationMonthCount" (ngModelChange)="onExpirationMonthCount($event)">
+          <span *ngIf="productForm.get('expirationMonthCount').errors &&
+          (productForm.get('expirationMonthCount').touched||productForm.get('expirationMonthCount').dirty)">
+            <span *ngIf="productForm.get('expirationMonthCount').errors.min" class="field_error">
+          minimun 1 is required</span>
+          </span>
+        </div>
+        <div class="form-group">
+          <label>Start Date</label>
+          <input type="date" class="form-control" (ngModelChange)="onStartDate($event)"
+           formControlName="startDate" name="startDate">
+          <span *ngIf="productForm.get('startDate').errors &&
+          (productForm.get('startDate').touched||productForm.get('startDate').dirty)">
+            <span *ngIf="productForm.get('startDate').errors.required" class="field_error">
+              Start Date
+              is required</span>
+          </span>
+        </div>
+        <div class="form-group">
+          <label>End Date</label>
+          <input type="date" class="form-control" formControlName="EndDate" 
+           name="EndDate">
+        </div>
+        <div class="form-group d-flex mt-3">
+          <button type="submit" class="btn btn-success ml-auto" *ngIf="!loaderbutton"
+           [disabled]="!productForm.valid">
+            Submit</button>
+            <button class="buttonload btn-danger ml-auto" *ngIf="loaderbutton">
+              <i class="fa fa-refresh fa-spin"></i> Loading
+            </button>
+            <button type="button" class="btn btn-danger ml-2"
+            (click)="close()" >
+            <i class="fa fa-times"></i> Close</button>
+        </div>
+      </div>
+      </form>
+
+
+    </div>
+  </div>
+</div>
